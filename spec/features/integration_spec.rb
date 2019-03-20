@@ -4,7 +4,7 @@ describe "integration test", type: :feature do
   def prepare_permissions
     ActiveAdmin::ManagedResource.reload
     ActiveAdmin::Permission.support.joins(:managed_resource).merge(
-      ActiveAdmin::ManagedResource.where(class_name: "AdminUser"),
+      ActiveAdmin::ManagedResource.where(class_name: "User"),
     ).all.map(&:can!)
     ActiveAdmin::Permission.staff.joins(:managed_resource).merge(
       ActiveAdmin::ManagedResource.where(class_name: "ActiveAdmin::Permission", action: "read"),
@@ -15,7 +15,7 @@ describe "integration test", type: :feature do
   end
 
   before do
-    prepare_admin_users
+    prepare_users
     prepare_permissions
   end
 
@@ -25,10 +25,10 @@ describe "integration test", type: :feature do
 
     specify "guest can only visit Dashboard" do
       expect(page).to     have_css "ul.header-item#tabs li#dashboard"
-      expect(page).not_to have_css "ul.header-item#tabs li#admin_users"
+      expect(page).not_to have_css "ul.header-item#tabs li#users"
       expect(page).not_to have_css "ul.header-item#tabs li#permissions"
 
-      visit admin_admin_users_path
+      visit users_path
       expect(page).to have_content "You are not authorized to perform this action."
 
       visit admin_permissions_path
@@ -40,12 +40,12 @@ describe "integration test", type: :feature do
     before { login_as :support }
     after  { logout }
 
-    specify "support can visit Dashboard and Admin Users" do
+    specify "support can visit Dashboard and Users" do
       expect(page).to     have_css "ul.header-item#tabs li#dashboard"
-      expect(page).to     have_css "ul.header-item#tabs li#admin_users"
+      expect(page).to     have_css "ul.header-item#tabs li#users"
       expect(page).not_to have_css "ul.header-item#tabs li#permissions"
 
-      visit admin_admin_users_path
+      visit users_path
       expect(page).not_to have_content "You are not authorized to perform this action."
 
       visit admin_permissions_path

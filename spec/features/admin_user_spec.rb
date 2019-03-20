@@ -1,28 +1,28 @@
 require "spec_helper"
 
-describe "/admin/admin_users", type: :feature do
+describe "/admin/users", type: :feature do
   before do
-    prepare_admin_users
+    prepare_users
     login_as :admin
-    click_link "Admin Users"
+    click_link "Users"
   end
 
   describe "scope" do
     it "should display scopes" do
       within "ul.scopes.table_tools_segmented_control" do
-        expect(page).to have_link "All", href: admin_admin_users_path(scope: :all)
+        expect(page).to have_link "All", href: admin_users_path(scope: :all)
 
-        AdminUser.roles.each_key do |role|
-          expect(page).to have_link role, href: admin_admin_users_path(scope: role)
+        User.roles.each_key do |role|
+          expect(page).to have_link role, href: admin_users_path(scope: role)
         end
       end
     end
 
     it "should return scoped collections" do
-      AdminUser.roles.each_key do |role|
+      User.roles.each_key do |role|
         find("li.scope.#{role} a").click
 
-        within "#index_table_admin_users" do
+        within "#index_table_users" do
           expect(page).to have_css "td.col-email", text: "#{role}@example.com"
         end
       end
@@ -38,7 +38,7 @@ describe "/admin/admin_users", type: :feature do
     end
 
     it "should assign role to admin" do
-      within "#index_table_admin_users" do
+      within "#index_table_users" do
         expect(page).to have_css "td.col-email", text: "guest@example.com"
       end
     end

@@ -7,9 +7,9 @@ module ActiveAdminRole
       @roles            = { guest: 0, support: 1, staff: 2, manager: 3, admin: 99 }
       @guest_user_roles = [:guest]
       @super_user_roles = [:admin]
-      @user_class_name  = "AdminUser"
+      @user_class_name  = "User"
       @default_state    = :cannot
-      @current_user_method_name = "current_admin_user"
+      @current_user_method_name = "current_user"
     end
 
     def default_state=(value)

@@ -29,14 +29,14 @@ https://github.com/yhirano55-playground/active_admin_role_sample
 ```sh
 $ bin/rails generate active_admin_role:install
   create  config/initializers/active_admin_role.rb
-  insert  app/models/admin_user.rb
+  insert  app/models/user.rb
   create  db/migrate/20161128090641_add_role_to_admin_users.rb
   create  db/migrate/20161128090642_create_active_admin_managed_resources.rb
   create  db/migrate/20161128090643_create_active_admin_permissions.rb
   create  app/models/ability.rb
     gsub  config/initializers/active_admin.rb
   create  app/admin/permissions.rb
-  insert  app/admin/admin_users.rb
+  insert  app/admin/users.rb
 
 $ bin/rails db:migrate
 ```

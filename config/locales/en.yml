@@ -23,7 +23,7 @@ en:
         state: State
 
   views:
-    admin_user:
+    user:
       notice:
         assigned: "Selected records have assigned as %{role}"
     permission:

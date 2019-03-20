@@ -83,19 +83,19 @@ Shoulda::Matchers.configure do |config|
 end
 
 # == Support
-def prepare_admin_users
-  AdminUser.roles.each_key do |role|
-    AdminUser.find_or_create_by(email: "#{role}@example.com", role: role) do |admin_user|
-      admin_user.password = "password"
-      admin_user.password_confirmation = "password"
+def prepare_users
+  User.roles.each_key do |role|
+    User.find_or_create_by(email: "#{role}@example.com", role: role) do |user|
+      user.password = "password"
+      user.password_confirmation = "password"
     end
   end
 end
 
 def login_as(role)
   visit root_path
-  fill_in "admin_user_email",    with: "#{role}@example.com"
-  fill_in "admin_user_password", with: "password"
+  fill_in "user_email",    with: "#{role}@example.com"
+  fill_in "user_password", with: "password"
   click_button "Login"
 end
 

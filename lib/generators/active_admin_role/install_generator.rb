@@ -10,7 +10,7 @@ module ActiveAdminRole
       class_option :model, optional: true,
                            type:     :string,
                            banner:   "model",
-                           desc:     "Specify the model class name if you will use anything other than `AdminUser`",
+                           desc:     "Specify the model class name if you will use anything other than `User`",
                            default:  "AdminUser"
 
       def copy_initializer_file
@@ -22,7 +22,7 @@ module ActiveAdminRole
       end
 
       def copy_migration_files
-        migration_template "migration/add_role_to_admin_users.tt",
+        migration_template "migration/add_role_to_users.tt",
                            "db/migrate/add_role_to_#{model_class_name.tableize}.rb",
                            migration_class_name: migration_class_name
         migration_template "migration/create_active_admin_managed_resources.tt",
@@ -47,7 +47,7 @@ module ActiveAdminRole
         template "admin/permissions.tt", "app/admin/permissions.rb"
       end
 
-      def configure_admin_users_file
+      def configure_users_file
         inject_into_file "app/admin/#{model_class_name.tableize}.rb",
                          "  role_changeable\n",
                          after: "ActiveAdmin.register #{model_class_name} do\n"
