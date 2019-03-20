@@ -11,7 +11,7 @@ module ActiveAdminRole
                            type:     :string,
                            banner:   "model",
                            desc:     "Specify the model class name if you will use anything other than `User`",
-                           default:  "AdminUser"
+                           default:  "User"
 
       def copy_initializer_file
         template "initializer.tt", "config/initializers/active_admin_role.rb"
